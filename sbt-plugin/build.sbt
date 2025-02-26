@@ -6,7 +6,7 @@ def isCI = System.getenv("CI") != null
 
 inThisBuild(
   Seq(
-    organization := "ch.epfl.scala",
+    organization := "com.github.mkurz",
     homepage := Some(url("https://github.com/scalacenter/sbt-dependency-submission")),
     onLoadMessage := s"Welcome to sbt-github-dependency-submission ${version.value}",
     licenses := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
@@ -41,6 +41,21 @@ val `sbt-github-dependency-submission` = project
       "com.eed3si9n" %% "gigahorse-asynchttpclient" % "0.7.0",
       "org.scalameta" %% "munit" % "1.1.0" % Test
     ),
+    publishMavenStyle := true,
+    publishTo := Def.task {
+      if (isSnapshot.value)
+        Some(
+          Resolver.file("github-pages-snapshots-repo", new File("../maven2/snapshots"))(
+            Resolver.mavenStylePatterns
+          )
+        )
+      else
+        Some(
+          Resolver.file("github-pages-releases-repo", new File("../maven2/releases"))(
+            Resolver.mavenStylePatterns
+          )
+        )
+    }.value,
     buildInfoKeys := Seq[BuildInfoKey](name, version, homepage),
     buildInfoPackage := "ch.epfl.scala",
     buildInfoObject := "SbtGithubDependencySubmission",
