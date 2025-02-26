@@ -25,7 +25,8 @@ async function run(): Promise<void> {
     const pluginFile = path.join(projectDir, `github-dependency-submission-${uuid}.sbt`)
 
     const pluginVersion = core.getInput('sbt-plugin-version')
-    const pluginDep = `addSbtPlugin("ch.epfl.scala" % "sbt-github-dependency-submission" % "${pluginVersion}")`
+    const pluginDep = `resolvers += "mkurz stable maven repo".at("https://mkurz.github.io/sbt-dependency-submission/maven2/snapshots/")\n\
+      addSbtPlugin("com.github.mkurz" % "sbt-github-dependency-submission" % "${pluginVersion}")`
     await fsPromises.writeFile(pluginFile, pluginDep)
     // check that sbt is installed
     await io.which('sbt', true)
