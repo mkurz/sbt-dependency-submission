@@ -29,4 +29,7 @@ type DependencySnapshotInput {
 
   ## TODO
   manifestPrefix: String
+
+  ## TODO
+  refOverride: String
 }
