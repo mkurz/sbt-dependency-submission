@@ -9,6 +9,10 @@ inputs:
     description: "The relative path of the working directory of the sbt build."
     required: false
     default: ''
+  manifest-prefix:
+    description: "TODO"
+    required: false
+    default: ''
   modules-ignore:
     description: |
       A list of space-separated names of modules to ignore. The action will not resolve nor submit the dependencies of these modules.

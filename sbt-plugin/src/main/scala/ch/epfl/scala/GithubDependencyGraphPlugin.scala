@@ -127,6 +127,7 @@ object GithubDependencyGraphPlugin extends AutoPlugin {
 
     val onResolveFailure = inputOpt.flatMap(_.onResolveFailure)
     val ignoredConfigs = inputOpt.toSeq.flatMap(_.ignoredConfigs).toSet
+    val manifestPrefixOpt = inputOpt.flatMap(_.manifestPrefix)
     val moduleName = crossVersion(projectID).name
 
     // a reverse view of internalConfigurationMap (internal-test -> test)
@@ -203,9 +204,15 @@ object GithubDependencyGraphPlugin extends AutoPlugin {
               moduleRef -> node
             }
 
+        val buildFileMaybePrefixedOpt = manifestPrefixOpt.flatMap(prefix =>
+          buildFileOpt
+            .map(bf => bf.withSource_location(s"${prefix}${bf.source_location.getOrElse("")}"))
+            .orElse(Some(githubapi.FileInfo(prefix)))
+        )
+
         val projectModuleRef = getReference(projectID)
         val metadata = Map("baseDirectory" -> JString(baseDirectory.toString))
-        val manifest = githubapi.Manifest(projectModuleRef, buildFileOpt, metadata, resolved.toMap)
+        val manifest = githubapi.Manifest(projectModuleRef, buildFileMaybePrefixedOpt, metadata, resolved.toMap)
         Some(manifest)
     }
   }

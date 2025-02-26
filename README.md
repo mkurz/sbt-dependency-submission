@@ -39,6 +39,10 @@ jobs:
 The  relative path of the working directory of your sbt build.
 Default value is `.`
 
+#### - `manifest-prefix` (optional)
+
+TODO
+
 #### - `modules-ignore` (optional)
 
 A list of space-separated names of modules to ignore. The action will not resolve nor submit the dependencies of these modules.

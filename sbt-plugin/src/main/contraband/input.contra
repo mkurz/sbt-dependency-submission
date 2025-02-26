@@ -26,4 +26,7 @@ type DependencySnapshotInput {
 
   ## The job correlator of the snapshot
   correlator: String
+
+  ## TODO
+  manifestPrefix: String
 }

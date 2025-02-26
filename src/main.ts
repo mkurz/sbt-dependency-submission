@@ -53,7 +53,9 @@ async function run(): Promise<void> {
       ? correlatorInput
       : `${github.context.workflow}_${github.context.job}_${github.context.action}`
 
-    const input = { ignoredModules, ignoredConfigs, onResolveFailure, correlator }
+    const manifestPrefix = core.getInput('manifest-prefix')
+
+    const input = { ignoredModules, ignoredConfigs, onResolveFailure, correlator, manifestPrefix }
 
     if (github.context.eventName === 'pull_request') {
       core.info('pull request, resetting sha')
