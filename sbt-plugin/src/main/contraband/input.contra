@@ -28,5 +28,8 @@ type DependencySnapshotInput {
   correlator: String
 
   ## TODO
+  shaOverride: String
+
+  ## TODO
   refOverride: String
 }

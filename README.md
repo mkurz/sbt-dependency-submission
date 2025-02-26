@@ -39,6 +39,10 @@ jobs:
 The  relative path of the working directory of your sbt build.
 Default value is `.`
 
+#### - `sha-override` (optional)
+
+TODO
+
 #### - `ref-override` (optional)
 
 TODO
