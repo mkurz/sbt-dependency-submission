@@ -84,7 +84,7 @@ function run() {
             const correlator = correlatorInput
                 ? correlatorInput
                 : `${github.context.workflow}_${github.context.job}_${github.context.action}`;
-            const manifestPrefix = core.getInput('manifest-prefix');
+            const manifestPrefix = core.getInput('manifest-prefix', { trimWhitespace: false });
             const input = { ignoredModules, ignoredConfigs, onResolveFailure, correlator, manifestPrefix };
             if (github.context.eventName === 'pull_request') {
                 core.info('pull request, resetting sha');

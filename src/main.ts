@@ -54,7 +54,7 @@ async function run(): Promise<void> {
       ? correlatorInput
       : `${github.context.workflow}_${github.context.job}_${github.context.action}`
 
-    const manifestPrefix = core.getInput('manifest-prefix')
+    const manifestPrefix = core.getInput('manifest-prefix', { trimWhitespace: false })
 
     const input = { ignoredModules, ignoredConfigs, onResolveFailure, correlator, manifestPrefix }
 
