@@ -85,8 +85,17 @@ function run() {
                 ? correlatorInput
                 : `${github.context.workflow}_${github.context.job}_${github.context.action}`;
             const manifestPrefix = core.getInput('manifest-prefix', { trimWhitespace: false });
+            const shaOverride = core.getInput('sha-override');
             const refOverride = core.getInput('ref-override');
-            const input = { ignoredModules, ignoredConfigs, onResolveFailure, correlator, manifestPrefix, refOverride };
+            const input = {
+                ignoredModules,
+                ignoredConfigs,
+                onResolveFailure,
+                correlator,
+                manifestPrefix,
+                shaOverride,
+                refOverride,
+            };
             if (github.context.eventName === 'pull_request') {
                 core.info('pull request, resetting sha');
                 const payload = github.context.payload;

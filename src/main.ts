@@ -56,6 +56,8 @@ async function run(): Promise<void> {
 
     const manifestPrefix = core.getInput('manifest-prefix', { trimWhitespace: false })
 
+    const shaOverride = core.getInput('sha-override')
+
     const refOverride = core.getInput('ref-override')
 
     const input = {
@@ -64,6 +66,7 @@ async function run(): Promise<void> {
       onResolveFailure,
       correlator,
       manifestPrefix,
+      shaOverride,
       refOverride,
     }
 

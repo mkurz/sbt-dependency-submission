@@ -43,6 +43,10 @@ Default value is `.`
 
 TODO
 
+#### - `sha-override` (optional)
+
+TODO
+
 #### - `ref-override` (optional)
 
 TODO
