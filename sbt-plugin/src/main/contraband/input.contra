@@ -32,4 +32,7 @@ type DependencySnapshotInput {
 
   ## TODO
   refOverride: String
+
+  ## TODO
+  manifestOverride: String
 }

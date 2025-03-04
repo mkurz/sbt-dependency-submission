@@ -47,6 +47,10 @@ TODO
 
 TODO
 
+#### - `manifest-override` (optional)
+
+TODO
+
 #### - `modules-ignore` (optional)
 
 A list of space-separated names of modules to ignore. The action will not resolve nor submit the dependencies of these modules.
