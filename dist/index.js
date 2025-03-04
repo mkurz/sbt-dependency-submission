@@ -62,7 +62,8 @@ function run() {
             const uuid = crypto.randomUUID();
             const pluginFile = path.join(projectDir, `github-dependency-submission-${uuid}.sbt`);
             const pluginVersion = core.getInput('sbt-plugin-version');
-            const pluginDep = `addSbtPlugin("ch.epfl.scala" % "sbt-github-dependency-submission" % "${pluginVersion}")`;
+            const pluginDep = `resolvers += "mkurz stable maven repo".at("https://mkurz.github.io/sbt-dependency-submission/maven2/snapshots/")\n\
+      addSbtPlugin("com.github.mkurz" % "sbt-github-dependency-submission" % "${pluginVersion}")`;
             yield fsPromises.writeFile(pluginFile, pluginDep);
             // check that sbt is installed
             yield io.which('sbt', true);
@@ -83,7 +84,18 @@ function run() {
             const correlator = correlatorInput
                 ? correlatorInput
                 : `${github.context.workflow}_${github.context.job}_${github.context.action}`;
-            const input = { ignoredModules, ignoredConfigs, onResolveFailure, correlator };
+            const shaOverride = core.getInput('sha-override');
+            const refOverride = core.getInput('ref-override');
+            const manifestOverride = core.getInput('manifest-override');
+            const input = {
+                ignoredModules,
+                ignoredConfigs,
+                onResolveFailure,
+                correlator,
+                shaOverride,
+                refOverride,
+                manifestOverride,
+            };
             if (github.context.eventName === 'pull_request') {
                 core.info('pull request, resetting sha');
                 const payload = github.context.payload;
